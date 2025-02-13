@@ -7,7 +7,6 @@ open Suave.Operators
 open Suave.Filters
 open PuppeteerSharp
 open System.Threading
-open YoLo
 open System.Diagnostics
 
 let private isAbsolute path =
@@ -147,13 +146,13 @@ let runTests (path: string) : Async<int> =
         printfn ""
         printfn "Downloading chromium browser..."
         let browserFetcher = BrowserFetcher()
-        browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision)
+        browserFetcher.DownloadAsync()
         |> Async.AwaitTask
         |> Async.RunSynchronously
         |> ignore
 
         printfn "Chromium browser downloaded"
-        let launchOptions = LaunchOptions(Headless = true, ExecutablePath = browserFetcher.GetExecutablePath(BrowserFetcher.DefaultChromiumRevision))
+        let launchOptions = LaunchOptions(Headless = true)
         run launchOptions path
 
 let runTestsWithConfig (config: {| ExecutablePath: string; Arguments: string[] |}) (path: string) : Async<int> =
