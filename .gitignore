@@ -203,3 +203,6 @@ dist/*
 #ionide
 .ionide/
 *.fs.js
+
+# Nix
+.envrc
